@@ -15,8 +15,8 @@
 
 | 项目 | 说明 | CI |
 |------|------|:--:|
-| [**react-agent**](https://github.com/weihuaguo270-ops/react-agent) | ReAct Agent **学习实现** — 手写运行时 + LangGraph 对照。模块：RAG、MCP、多 Agent 编排、权限、轨迹录制 | ✅ |
-| [**llm-eval-engine**](https://github.com/weihuaguo270-ops/llm-eval-engine) | LLM 评估**实验框架** — Process Reward、动态评分标准、Eval Loop、HITL、基线回归 | ✅ |
+| [**react-agent**](https://github.com/weihuaguo270-ops/react-agent) | ReAct Agent **学习实现** — 手写运行时 + LangGraph 对照；RAG / MCP / 多 Agent；内置 capability 评测（准确率/工具/推理等） | ✅ |
+| [**llm-eval-engine**](https://github.com/weihuaguo270-ops/llm-eval-engine) | LLM 评估**实验框架** — Process Reward、动态评分标准、Eval Loop、HITL、基线回归；可与 react-agent 轨迹对接 | ✅ |
 | [**transformer-attention**](https://github.com/weihuaguo270-ops/transformer-attention) | Attention **教学实现** — MHA / GQA / MLA 等。NumPy 参考 + 小规模 PyTorch 训练对照 | ✅ |
 | [**trace-debugger**](https://github.com/weihuaguo270-ops/trace-debugger) | Agent 轨迹分析**小工具** — 根因规则、回放、批量扫描（配套 react-agent） | ✅ |
 
