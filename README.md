@@ -5,9 +5,19 @@
 [![CI](https://github.com/weihuaguo270-ops/react-agent/actions/workflows/test.yml/badge.svg)](https://github.com/weihuaguo270-ops/react-agent/actions/workflows/test.yml)
 [![CI](https://github.com/weihuaguo270-ops/llm-eval-engine/actions/workflows/test.yml/badge.svg)](https://github.com/weihuaguo270-ops/llm-eval-engine/actions/workflows/test.yml)
 [![CI](https://github.com/weihuaguo270-ops/transformer-attention/actions/workflows/test.yml/badge.svg)](https://github.com/weihuaguo270-ops/transformer-attention/actions/workflows/test.yml)
+[![CI](https://github.com/weihuaguo270-ops/trace-debugger/actions/workflows/test.yml/badge.svg)](https://github.com/weihuaguo270-ops/trace-debugger/actions/workflows/test.yml)
 
 > 求职方向：大模型算法 / Agent 研发 / LLM 评测 · 2026 年 7 月起可实习  
 > 下列项目均为**个人学习与实验实现**，用于理解原理与工程结构，非生产交付物。
+
+---
+
+## 📌 推荐阅读顺序（面试向）
+
+1. **先看** [react-agent](https://github.com/weihuaguo270-ops/react-agent) — 主作品（运行时 + 评测 + 轨迹）  
+2. **再看** [transformer-attention](https://github.com/weihuaguo270-ops/transformer-attention) — 算法原理手写对照  
+3. **选看** [llm-eval-engine](https://github.com/weihuaguo270-ops/llm-eval-engine) — 与 Agent 轨迹联动的评测实验  
+4. **了解** [trace-debugger](https://github.com/weihuaguo270-ops/trace-debugger) — 轨迹复盘小工具（配套，非独立主项目）
 
 ---
 
@@ -15,12 +25,12 @@
 
 | 项目 | 说明 | CI |
 |------|------|:--:|
-| [**react-agent**](https://github.com/weihuaguo270-ops/react-agent) | ReAct Agent **学习实现** — 手写运行时 + LangGraph 对照；RAG / MCP / 多 Agent；内置 capability 评测（准确率/工具/推理等） | ✅ |
-| [**llm-eval-engine**](https://github.com/weihuaguo270-ops/llm-eval-engine) | LLM 评估**实验框架** — Process Reward、动态评分标准、Eval Loop、HITL、基线回归；可与 react-agent 轨迹对接 | ✅ |
+| [**react-agent**](https://github.com/weihuaguo270-ops/react-agent) | ReAct Agent **学习实现** — 手写运行时 + LangGraph 对照；RAG / MCP / 多 Agent；capability 评测（公开结果见仓库 `docs/`） | ✅ |
+| [**llm-eval-engine**](https://github.com/weihuaguo270-ops/llm-eval-engine) | LLM 评估**实验框架** — Process Reward、动态评分标准、Eval Loop、HITL、基线回归；可对接 react-agent 轨迹 | ✅ |
 | [**transformer-attention**](https://github.com/weihuaguo270-ops/transformer-attention) | Attention **教学实现** — MHA / GQA / MLA 等。NumPy 参考 + 小规模 PyTorch 训练对照 | ✅ |
 | [**trace-debugger**](https://github.com/weihuaguo270-ops/trace-debugger) | Agent 轨迹分析**小工具** — 根因规则、回放、批量扫描（配套 react-agent） | ✅ |
 
-**项目联动：** Agent 执行 → 轨迹录制 → [llm-eval-engine](https://github.com/weihuaguo270-ops/llm-eval-engine) 评分。各仓 CI 在 **push / pull_request** 时运行（非定时每日任务）。
+**项目联动：** Agent 执行 → 轨迹录制 → [llm-eval-engine](https://github.com/weihuaguo270-ops/llm-eval-engine) 评分。各仓 CI 在 **push / pull_request** 时运行。
 
 ---
 
