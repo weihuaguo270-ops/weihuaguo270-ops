@@ -8,47 +8,69 @@
 [![CI](https://github.com/weihuaguo270-ops/trace-debugger/actions/workflows/test.yml/badge.svg)](https://github.com/weihuaguo270-ops/trace-debugger/actions/workflows/test.yml)
 
 > 求职方向：大模型算法 / Agent 研发 / LLM 评测 · 2026 年 7 月起可实习  
-> 下列项目均为**个人学习与实验实现**，用于理解原理与工程结构，非生产交付物。
+> 下列项目均为**个人学习与实验实现**，用于理解原理与工程结构，**非生产交付物**。
 
 ---
 
-## 📌 推荐阅读顺序（面试向）
+## 推荐阅读顺序（面试向）
 
-1. **先看** [react-agent](https://github.com/weihuaguo270-ops/react-agent) — 主作品（运行时 + 评测 + 轨迹）  
-2. **再看** [transformer-attention](https://github.com/weihuaguo270-ops/transformer-attention) — 算法原理手写对照  
-3. **选看** [llm-eval-engine](https://github.com/weihuaguo270-ops/llm-eval-engine) — 与 Agent 轨迹联动的评测实验  
-4. **了解** [trace-debugger](https://github.com/weihuaguo270-ops/trace-debugger) — 轨迹复盘小工具（配套，非独立主项目）
-
----
-
-## 📌 核心项目
-
-| 项目 | 说明 | CI |
-|------|------|:--:|
-| [**react-agent**](https://github.com/weihuaguo270-ops/react-agent) | ReAct Agent **学习实现** — 手写运行时 + LangGraph 对照；RAG / MCP / 多 Agent；capability 评测（公开结果见仓库 `docs/`） | ✅ |
-| [**llm-eval-engine**](https://github.com/weihuaguo270-ops/llm-eval-engine) | LLM 评估**实验框架** — Process Reward、动态评分标准、Eval Loop、HITL、基线回归；可对接 react-agent 轨迹 | ✅ |
-| [**transformer-attention**](https://github.com/weihuaguo270-ops/transformer-attention) | Attention **教学实现** — MHA / GQA / MLA 等。NumPy 参考 + 小规模 PyTorch 训练对照 | ✅ |
-| [**trace-debugger**](https://github.com/weihuaguo270-ops/trace-debugger) | Agent 轨迹分析**小工具** — 根因规则、回放、批量扫描（配套 react-agent） | ✅ |
-
-**项目联动：** Agent 执行 → 轨迹录制 → [llm-eval-engine](https://github.com/weihuaguo270-ops/llm-eval-engine) 评分。各仓 CI 在 **push / pull_request** 时运行。
+1. **先看** [react-agent](https://github.com/weihuaguo270-ops/react-agent) — 主作品：ReAct 运行时 + Harness 轨迹 + capability 公开快照  
+2. **再看** [transformer-attention](https://github.com/weihuaguo270-ops/transformer-attention) — 算法线：MHA / GQA / MLA（含 absorb 路径）手写对照  
+3. **选看** [llm-eval-engine](https://github.com/weihuaguo270-ops/llm-eval-engine) — 评测线：Process Reward / 人机校准（小样本诚实报告）  
+4. **了解** [trace-debugger](https://github.com/weihuaguo270-ops/trace-debugger) — 配套：轨迹失败分类 / 回放（非独立主项目）
 
 ---
 
-## 🧠 技术栈
+## 核心项目与职责边界
+
+| 项目 | 负责什么 | 不声称什么 | CI |
+|------|----------|------------|:--:|
+| [**react-agent**](https://github.com/weihuaguo270-ops/react-agent) | 手写 ReAct + LangGraph 对照；Harness 轨迹 Schema；capability 规则评测；跨仓一键闭环 | 生产级安全沙箱 / 不可信代码隔离 | ✅ |
+| [**llm-eval-engine**](https://github.com/weihuaguo270-ops/llm-eval-engine) | Process Reward、Eval Loop、人机校准（κ 等诚实报告） | 替代 react-agent 的 capability 主评测集 | ✅ |
+| [**transformer-attention**](https://github.com/weihuaguo270-ops/transformer-attention) | Attention 教学实现与微基准（NumPy / 小规模 PyTorch） | 大规模预训练效果 | ✅ |
+| [**trace-debugger**](https://github.com/weihuaguo270-ops/trace-debugger) | 轨迹启发式复盘（工具失败 / 跑偏 / 溢出等） | Agent 可观测「平台」 | ✅ |
+
+### 跨仓闭环（可复现 demo）
+
+```text
+Agent 执行 → Harness 轨迹 (Format B, 1-based step)
+          → trace-debugger 失败分类
+          → llm-eval-engine Process Reward
+```
+
+- Schema：[`react-agent/schemas/harness_trajectory.schema.json`](https://github.com/weihuaguo270-ops/react-agent/blob/main/schemas/harness_trajectory.schema.json)  
+- 一键脚本：`python examples/harness_closed_loop.py --fixture`（react-agent CI `integration` 会跑）  
+- MCP / 本机路径：**不入库**；用 `mcp_servers.example.json` → 本地 `mcp_servers.json`  
+- 核心依赖轻量；语义检索 / RAG：`pip install -e ".[rag]"`
+
+---
+
+## 近期可验证点（2026-07）
+
+| 方向 | 证据 |
+|------|------|
+| Agent ↔ 评测闭环 | Format B Schema + 离线 fixture + CI 安装 tdebug / eval-engine |
+| 公开评测诚实性 | react-agent `docs/` capability 快照；eval-engine 校准 κ≈0.47（n=15，刻意不刷分） |
+| 算法线 | transformer-attention MLA absorb 数值对齐 + 微基准 CSV；PyTorch 套件进 CI |
+| 工程克制 | 权限 / 子进程执行写明「学习级提示与超时隔离，非安全边界」 |
+
+---
+
+## 技术栈
 
 | 领域 | 具体 |
 |------|------|
 | **语言** | Python（主力）、TypeScript（基础）、C++（基础） |
-| **深度学习** | PyTorch、NumPy、Transformer 架构、GQA/MLA、RoPE |
-| **Agent** | LangChain/LangGraph、MCP、ReAct Loop、多 Agent 编排 |
+| **深度学习** | PyTorch、NumPy、Transformer 架构、GQA / MLA、RoPE |
+| **Agent** | 手写 ReAct Loop、LangGraph 对照、MCP（配置外置）、多 Agent 编排实验 |
 | **工程工具** | Git / GitHub Actions、pytest、flake8、FastAPI |
-| **其他** | RAG、向量检索、LLM 评测 Pipeline、Process Reward 思路 |
+| **评测 / 轨迹** | Capability 规则打分、Process Reward 实验、人机校准、Harness Schema |
 
 ---
 
-## 📫 联系
+## 联系
 
-- **Email:** weihuaguo270@gmail.com
+- **Email:** weihuaguo270@gmail.com  
 - **GitHub:** [weihuaguo270-ops](https://github.com/weihuaguo270-ops)
 
 > 当前状态：寻找 2026 暑期实习 · 大模型算法 / Agent 研发 / LLM 评测方向
