@@ -16,7 +16,7 @@
 
 1. **先看** [react-agent](https://github.com/weihuaguo270-ops/react-agent) — 主作品：ReAct 运行时 + Harness 轨迹 + capability 公开快照  
 2. **再看** [transformer-attention](https://github.com/weihuaguo270-ops/transformer-attention) — 算法线：MHA / GQA / MLA（含 absorb 路径）手写对照  
-3. **选看** [llm-eval-engine](https://github.com/weihuaguo270-ops/llm-eval-engine) — 评测线：Process Reward / 人机校准（小样本诚实报告）  
+3. **选看** [llm-eval-engine](https://github.com/weihuaguo270-ops/llm-eval-engine) — 评测线：过程级 LLM-as-Judge / 人机校准（小样本诚实报告）
 4. **了解** [trace-debugger](https://github.com/weihuaguo270-ops/trace-debugger) — 配套：轨迹失败分类 / 回放（非独立主项目）
 
 ---
@@ -26,7 +26,7 @@
 | 项目 | 负责什么 | 不声称什么 | CI |
 |------|----------|------------|:--:|
 | [**react-agent**](https://github.com/weihuaguo270-ops/react-agent) | 手写 ReAct + LangGraph 对照；Harness 轨迹 Schema；capability 规则评测；跨仓一键闭环 | 生产级安全沙箱 / 不可信代码隔离 | ✅ |
-| [**llm-eval-engine**](https://github.com/weihuaguo270-ops/llm-eval-engine) | Process Reward、Eval Loop、人机校准（κ 等诚实报告） | 替代 react-agent 的 capability 主评测集 | ✅ |
+| [**llm-eval-engine**](https://github.com/weihuaguo270-ops/llm-eval-engine) | 过程级 LLM-as-Judge、Eval Loop、人机校准 | 训练型 PRM / 替代 react-agent 的 capability 主评测集 | ✅ |
 | [**transformer-attention**](https://github.com/weihuaguo270-ops/transformer-attention) | Attention 教学实现与微基准（NumPy / 小规模 PyTorch） | 大规模预训练效果 | ✅ |
 | [**trace-debugger**](https://github.com/weihuaguo270-ops/trace-debugger) | 轨迹启发式复盘（工具失败 / 跑偏 / 溢出等） | Agent 可观测「平台」 | ✅ |
 
@@ -35,7 +35,7 @@
 ```text
 Agent 执行 → Harness 轨迹 (Format B, 1-based step)
           → trace-debugger 失败分类
-          → llm-eval-engine Process Reward
+          → llm-eval-engine 过程级 Judge 评分
 ```
 
 - Schema：[`react-agent/schemas/harness_trajectory.schema.json`](https://github.com/weihuaguo270-ops/react-agent/blob/main/schemas/harness_trajectory.schema.json)  
@@ -50,7 +50,7 @@ Agent 执行 → Harness 轨迹 (Format B, 1-based step)
 | 方向 | 证据 |
 |------|------|
 | Agent ↔ 评测闭环 | Format B Schema + 离线 fixture + CI 安装 tdebug / eval-engine |
-| 公开评测诚实性 | react-agent `docs/` capability 快照；eval-engine 校准 κ≈0.47（n=15，刻意不刷分） |
+| 公开评测诚实性 | react-agent `docs/` capability 快照；eval-engine live Judge 校准 κ≈0.68（n=28，单人标注、无 held-out） |
 | 算法线 | transformer-attention MLA absorb 数值对齐 + 微基准 CSV；PyTorch 套件进 CI |
 | 工程克制 | 权限 / 子进程执行写明「学习级提示与超时隔离，非安全边界」 |
 
@@ -64,7 +64,7 @@ Agent 执行 → Harness 轨迹 (Format B, 1-based step)
 | **深度学习** | PyTorch、NumPy、Transformer 架构、GQA / MLA、RoPE |
 | **Agent** | 手写 ReAct Loop、LangGraph 对照、MCP（配置外置）、多 Agent 编排实验 |
 | **工程工具** | Git / GitHub Actions、pytest、flake8、FastAPI |
-| **评测 / 轨迹** | Capability 规则打分、Process Reward 实验、人机校准、Harness Schema |
+| **评测 / 轨迹** | Capability 规则打分、过程级 LLM-as-Judge、人机校准、Harness Schema |
 
 ---
 
