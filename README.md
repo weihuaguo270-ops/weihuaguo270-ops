@@ -45,12 +45,26 @@ Agent 执行 → Harness 轨迹 (Format B, 1-based step)
 
 ---
 
+## P0 证据地图（四层一张表）
+
+面试时建议从 [react-agent P0_EVIDENCE_MAP](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/P0_EVIDENCE_MAP.md) 起讲，四层指标**刻意分开**：
+
+| 层 | 数字（2026-07） | 公开页 |
+|----|-----------------|--------|
+| Execution | offline **12/12**；agent **36/36** | [agent v3](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/execution_agent_snapshot_20260716_v3.md) |
+| Reliability | live flaky n=20：**error_obs 0 vs 3.1** | [live v2](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/reliability_live_live_20260716_v2.md) |
+| Failure | 同批 100 条：`llm_offtrack` **6→1** | [飞轮闭环](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/flywheel_closed_loop_20260716.md) |
+| Judge | live κ≈**0.68**（n=28） | [calibration live](https://github.com/weihuaguo270-ops/llm-eval-engine/blob/master/docs/calibration_snapshot_20260716_live.md) |
+
+---
+
 ## 近期可验证点（2026-07）
 
 | 方向 | 证据 |
 |------|------|
 | Agent ↔ 评测闭环 | Format B Schema + 离线 fixture + CI 安装 tdebug / eval-engine |
-| 公开评测诚实性 | react-agent `docs/` capability 快照；eval-engine live Judge 校准 κ≈0.68（n=28，单人标注、无 held-out） |
+| P0 四层证据 | 见上表 + [P0_EVIDENCE_MAP](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/P0_EVIDENCE_MAP.md) |
+| 公开评测诚实性 | capability / execution 快照；eval-engine live Judge κ≈0.68（单人标注、无 held-out） |
 | 算法线 | transformer-attention MLA absorb 数值对齐 + 微基准 CSV；PyTorch 套件进 CI |
 | 工程克制 | 权限 / 子进程执行写明「学习级提示与超时隔离，非安全边界」 |
 
