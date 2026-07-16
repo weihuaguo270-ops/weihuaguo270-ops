@@ -54,7 +54,7 @@ Agent 执行 → Harness 轨迹 (Format B, 1-based step)
 | Execution | offline **12/12**；agent **36/36** | [agent v3](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/execution_agent_snapshot_20260716_v3.md) |
 | Reliability | live flaky n=20：**error_obs 0 vs 3.1** | [live v2](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/reliability_live_live_20260716_v2.md) |
 | Failure | 同批 100 条：`llm_offtrack` **6→1** | [飞轮闭环](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/flywheel_closed_loop_20260716.md) |
-| Judge | **held_out** offline κ=**1.0**（n=11，冻结分）；live 全量 κ≈**0.68** | [offline v3](https://github.com/weihuaguo270-ops/llm-eval-engine/blob/master/docs/calibration_snapshot_20260716_offline.md) · [live](https://github.com/weihuaguo270-ops/llm-eval-engine/blob/master/docs/calibration_snapshot_20260716_live.md) · [怎么读](https://github.com/weihuaguo270-ops/llm-eval-engine/blob/master/docs/METRICS_TRUST.md) |
+| Judge | **held_out live** κ≈**0.59**（n=11，CI[0.26,1.0]）；全量 live κ≈**0.68** | [live v3](https://github.com/weihuaguo270-ops/llm-eval-engine/blob/master/docs/calibration_snapshot_20260716_live.md) · [怎么读](https://github.com/weihuaguo270-ops/llm-eval-engine/blob/master/docs/METRICS_TRUST.md) |
 
 ---
 
