@@ -54,7 +54,7 @@ Agent 执行 → Harness 轨迹 (Format B, 1-based step)
 | Execution | offline **12/12**；agent **36/36** | [agent v3](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/execution_agent_snapshot_20260716_v3.md) |
 | Reliability | live flaky n=20：**error_obs 0 vs 3.1** | [live v2](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/reliability_live_live_20260716_v2.md) |
 | Failure | 同批 100 条：`llm_offtrack` **6→1** | [飞轮闭环](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/flywheel_closed_loop_20260716.md) |
-| Judge | **held_out live** κ≈**0.59**（n=11，CI[0.26,1.0]）；offline held_out=1.0（n=20，冻结） | [live](https://github.com/weihuaguo270-ops/llm-eval-engine/blob/master/docs/calibration_snapshot_20260716_live.md) · [怎么读](https://github.com/weihuaguo270-ops/llm-eval-engine/blob/master/docs/METRICS_TRUST.md) |
+| Judge | **held_out live** κ≈**0.69**（n=20，CI[0.46,0.92]）；offline held_out=1.0（n=20，冻结） | [live](https://github.com/weihuaguo270-ops/llm-eval-engine/blob/master/docs/calibration_snapshot_20260716_live.md) · [怎么读](https://github.com/weihuaguo270-ops/llm-eval-engine/blob/master/docs/METRICS_TRUST.md) |
 
 ---
 
@@ -64,7 +64,7 @@ Agent 执行 → Harness 轨迹 (Format B, 1-based step)
 |------|------|
 | Agent ↔ 评测闭环 | Format B Schema + 离线 fixture + CI 安装 tdebug / eval-engine |
 | P0 四层证据 | 见上表 + [P0_EVIDENCE_MAP](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/P0_EVIDENCE_MAP.md) |
-| 公开评测诚实性 | capability / execution + Wilson CI；Judge **dev/held_out** 分栏 + bootstrap CI（单人标注、第二标注者 pending） |
+| 公开评测诚实性 | capability / execution + Wilson CI；Judge held_out live κ≈0.69（n=20）；第二标注者 protocol_ready |
 | 算法线 | transformer-attention MLA absorb 数值对齐 + 微基准 CSV；PyTorch 套件进 CI |
 | 工程克制 | 权限 / 子进程执行写明「学习级提示与超时隔离，非安全边界」 |
 
