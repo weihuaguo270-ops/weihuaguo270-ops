@@ -12,12 +12,12 @@
 
 ---
 
-## 推荐阅读顺序（面试向）
+## 怎么读这些仓库
 
-1. **先看** [react-agent](https://github.com/weihuaguo270-ops/react-agent) — 主作品：**证据化文档排障**（引用/拒答 + 四套离线 eval）+ ReAct/Workflow 运行时 + Harness 跨仓闭环 · [v0.3.0](https://github.com/weihuaguo270-ops/react-agent/releases/tag/v0.3.0)
-2. **再看** [transformer-attention](https://github.com/weihuaguo270-ops/transformer-attention) — 算法线：MHA / GQA / MLA（含 absorb 路径）手写对照  
-3. **选看** [llm-eval-engine](https://github.com/weihuaguo270-ops/llm-eval-engine) — 评测线：过程级 LLM-as-Judge / 人机校准（小样本诚实报告）
-4. **了解** [trace-debugger](https://github.com/weihuaguo270-ops/trace-debugger) — 配套：轨迹失败分类 / 回放（非独立主项目）
+1. **先看** [react-agent](https://github.com/weihuaguo270-ops/react-agent) — 主仓：证据化文档排障 + Workflow 运行时 + Harness 跨仓闭环 · [v0.3.0](https://github.com/weihuaguo270-ops/react-agent/releases/tag/v0.3.0)
+2. **再看** [transformer-attention](https://github.com/weihuaguo270-ops/transformer-attention) — 算法线：MHA / GQA / MLA（含 absorb）手写对照
+3. **选看** [llm-eval-engine](https://github.com/weihuaguo270-ops/llm-eval-engine) — 评测线：过程级 Judge / 人机校准（小样本，分栏报数）
+4. **了解** [trace-debugger](https://github.com/weihuaguo270-ops/trace-debugger) — 配套：轨迹失败分类 / 回放（非主项目）
 
 ---
 
@@ -25,7 +25,7 @@
 
 | 项目 | 负责什么 | 不声称什么 | CI |
 |------|----------|------------|:--:|
-| [**react-agent**](https://github.com/weihuaguo270-ops/react-agent) | **证据化文档/Runbook 问答**（Workflow v5、句级合成、引用/拒答）；现场证据 + 结构化 diagnosis；**34+12+5+5** 四套分层 eval；Harness 轨迹 + capability；跨仓闭环 | 自动 API 根因诊断；生产级安全沙箱 / 不可信代码隔离 | ✅ |
+| [**react-agent**](https://github.com/weihuaguo270-ops/react-agent) | 证据化文档/Runbook 问答（Workflow v5、引用/拒答）；传入式现场证据 + 规则 diagnosis；四套离线 eval；Harness + capability；跨仓闭环 | 自动 API 根因诊断；生产级沙箱 | ✅ |
 | [**llm-eval-engine**](https://github.com/weihuaguo270-ops/llm-eval-engine) | 过程级 LLM-as-Judge、Eval Loop、人机校准 | 训练型 PRM / 替代 react-agent 的 capability 主评测集 | ✅ |
 | [**transformer-attention**](https://github.com/weihuaguo270-ops/transformer-attention) | Attention 教学实现与微基准（NumPy / 小规模 PyTorch） | 大规模预训练效果 | ✅ |
 | [**trace-debugger**](https://github.com/weihuaguo270-ops/trace-debugger) | 轨迹启发式复盘（工具失败 / 跑偏 / 溢出等） | Agent 可观测「平台」 | ✅ |
@@ -47,7 +47,7 @@ Agent 执行 → Harness 轨迹 (Format B, 1-based step)
 
 ## P0 证据地图（四层一张表）
 
-面试时建议从 [react-agent P0_EVIDENCE_MAP](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/P0_EVIDENCE_MAP.md) 起讲，四层指标**刻意分开**：
+讲四层证据时，从 [react-agent P0_EVIDENCE_MAP](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/P0_EVIDENCE_MAP.md) 起；Execution / Reliability / Failure / Judge **分开报**，不要合成一个总分：
 
 | 层 | 数字（2026-07） | 公开页 |
 |----|-----------------|--------|
@@ -58,16 +58,16 @@ Agent 执行 → Harness 轨迹 (Format B, 1-based step)
 
 ---
 
-## 近期可验证点（2026-07）
+## 目前能核对的内容（2026-07）
 
 | 方向 | 证据 |
 |------|------|
-| 文档排障 eval 闭环 | [v0.3.0](https://github.com/weihuaguo270-ops/react-agent/releases/tag/v0.3.0)：golden **34/34** + fault **12** + production **5** + git **5**；见 [DOCS_TROUBLESHOOT_EVAL](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/DOCS_TROUBLESHOOT_EVAL.md) |
-| Agent ↔ 评测闭环 | Format B Schema + 离线 fixture + CI 安装 tdebug / eval-engine |
-| P0 四层证据 | 见上表 + [P0_EVIDENCE_MAP](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/P0_EVIDENCE_MAP.md) |
-| 公开评测诚实性 | capability / execution + Wilson CI；Judge held_out live κ≈0.69（n=20）；第二标注者 protocol_ready |
-| 算法线 | transformer-attention MLA absorb 数值对齐 + 微基准 CSV；PyTorch 套件进 CI |
-| 工程克制 | 权限 / 子进程执行写明「学习级提示与超时隔离，非安全边界」 |
+| 文档排障 eval | [v0.3.0](https://github.com/weihuaguo270-ops/react-agent/releases/tag/v0.3.0)：golden 34 + fault 12 + production 5 + git 5 · [DOCS_TROUBLESHOOT_EVAL](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/DOCS_TROUBLESHOOT_EVAL.md) |
+| Agent ↔ 评测闭环 | Format B Schema + 离线 fixture；CI clone tdebug / eval-engine |
+| P0 四层证据 | 见上表 · [P0_EVIDENCE_MAP](https://github.com/weihuaguo270-ops/react-agent/blob/main/docs/P0_EVIDENCE_MAP.md) |
+| Judge 校准 | held_out live κ≈0.69（n=20）；第二标注者 protocol_ready，尚无 r2 |
+| 算法线 | MLA absorb 数值对齐 + 微基准 CSV；PyTorch 套件进 CI |
+| 权限 / 沙箱 | 文档写明学习级闸门与超时隔离，**不是**安全边界 |
 
 ---
 
@@ -77,9 +77,9 @@ Agent 执行 → Harness 轨迹 (Format B, 1-based step)
 |------|------|
 | **语言** | Python（主力）、TypeScript（基础）、C++（基础） |
 | **深度学习** | PyTorch、NumPy、Transformer 架构、GQA / MLA、RoPE |
-| **Agent** | 证据化文档排障 Workflow、句级合成、结构化 diagnosis schema；手写 ReAct Loop、LangGraph 对照、MCP（配置外置） |
+| **Agent** | docs_troubleshoot Workflow、引用/拒答、diagnosis schema；ReAct + LangGraph 对照、MCP（配置外置） |
 | **工程工具** | Git / GitHub Actions、pytest、flake8、FastAPI |
-| **评测 / 轨迹** | 文档排障四套离线门禁、Capability 规则打分、过程级 LLM-as-Judge、Harness Schema |
+| **评测 / 轨迹** | 文档排障四套 eval、Capability 规则打分、过程级 Judge、Harness Schema |
 
 ---
 
