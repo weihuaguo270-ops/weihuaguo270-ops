@@ -5,7 +5,7 @@
 ## Profile bio（建议）
 
 ```text
-哈工程计算机 · 大三 · 大模型算法 / Agent / LLM 评测
+哈工程计算机 · 大三 · 大模型算法（推理/结构）/ Agent / LLM 评测
 四条线：ReAct Agent · Trace Debugger · LLM Eval Engine · LLM 推理链路优化
 ```
 

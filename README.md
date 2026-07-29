@@ -7,7 +7,7 @@
 [![CI](https://github.com/weihuaguo270-ops/llm-inference-pipeline/actions/workflows/test.yml/badge.svg)](https://github.com/weihuaguo270-ops/llm-inference-pipeline/actions/workflows/test.yml)
 [![CI](https://github.com/weihuaguo270-ops/trace-debugger/actions/workflows/test.yml/badge.svg)](https://github.com/weihuaguo270-ops/trace-debugger/actions/workflows/test.yml)
 
-> 求职方向：大模型算法 / Agent 研发 / LLM 评测 · 2026 年 7 月起可实习  
+> 求职方向：大模型算法（推理/结构）/ Agent 研发 / LLM 评测 · 2026 年 7 月起可实习  
 > 下面四条线都是我**个人主导的学习/实验项目**，用来把 Agent 运行时、失败治理、过程评测和推理链路优化串成可复现闭环——**不是生产交付物**。
 
 ---
@@ -117,4 +117,4 @@ ReAct Agent 执行 → Harness 轨迹 (Format B, 1-based step)
 - **Email:** weihuaguo270@gmail.com  
 - **GitHub:** [weihuaguo270-ops](https://github.com/weihuaguo270-ops)
 
-> 当前状态：寻找 2026 暑期实习 · 大模型算法 / Agent 研发 / LLM 评测方向
+> 当前状态：寻找 2026 暑期实习 · 大模型算法（推理/结构）/ Agent 研发 / LLM 评测方向
