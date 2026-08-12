@@ -7,7 +7,7 @@
 [![CI](https://github.com/weihuaguo270-ops/llm-inference-pipeline/actions/workflows/test.yml/badge.svg)](https://github.com/weihuaguo270-ops/llm-inference-pipeline/actions/workflows/test.yml)
 [![CI](https://github.com/weihuaguo270-ops/trace-debugger/actions/workflows/test.yml/badge.svg)](https://github.com/weihuaguo270-ops/trace-debugger/actions/workflows/test.yml)
 
-> 项目负责人视角：围绕 LLM/Agent 业务，把“任务执行 → 质量验收 → 失败定位 → 成本优化”拆成四个可复现、可审计的工程项目。
+> 围绕 LLM/Agent 业务，将“任务执行 → 质量验收 → 失败定位 → 成本优化”拆成四个可复现、可审计的工程项目。
 > 当前均为个人主导的研究/工程原型，不声称已经接入真实企业流量、SLA 或多租户生产环境；README 中的证据、假设和缺口均单独标注。
 
 ---
@@ -23,7 +23,7 @@
 | **评测决策** | **LLM Eval Engine** | [llm-eval-engine](https://github.com/weihuaguo270-ops/llm-eval-engine) | [v0.4.0](https://github.com/weihuaguo270-ops/llm-eval-engine/releases/tag/v0.4.0) | 跨 Agent Episode、真实 SDK 适配、业务/过程/失败/性能分栏发布判断 |
 | **成本性能** | **LLM 推理链路优化** | [llm-inference-pipeline](https://github.com/weihuaguo270-ops/llm-inference-pipeline) | [v0.2.0](https://github.com/weihuaguo270-ops/llm-inference-pipeline/releases/tag/v0.2.0) | 用 TTFT/TPOT、Cache 和硬件元数据生成可复核发布性能证据；不声称生产收益 |
 
-**负责人最近完成的业务闭环：**
+**近期完成的业务闭环：**
 
 - Agent 执行产出 Format B 轨迹，StepWatcher 边运行边记录失败事件，Trace Debugger 再按 baseline 做发版前比较。
 - Eval Engine 将过程评分与人工标注、数据切分、安全用例和漂移检查分开，输出“通过 / 复核 / 暂缓”依据，而不是只报一个总分。
