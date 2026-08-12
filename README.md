@@ -12,16 +12,16 @@
 
 ---
 
-## 业务组合（2026-08-12）
+## 业务组合（2026-08-13）
 
 四个项目按业务决策链分工，共用 **Format B** 轨迹约定，分别回答四个问题：Agent 能否稳定完成任务、出了问题在哪里、评测结果是否可信、单位请求成本是否可控。
 
 | 线 | 项目 | 仓库 | 版本 | 我负责推到的状态 |
 |----|------|------|------|------------------|
-| **业务执行** | **ReAct Agent** | [react-agent](https://github.com/weihuaguo270-ops/react-agent) | [v0.6.0](https://github.com/weihuaguo270-ops/react-agent/releases/tag/v0.6.0) | 运行时、权限、工具隔离、Harness 轨迹和三类应用入口；为后续质量治理提供可观测执行样本 |
-| **质量治理** | **Trace Debugger** | [trace-debugger](https://github.com/weihuaguo270-ops/trace-debugger) | [v0.3.0](https://github.com/weihuaguo270-ops/trace-debugger/releases/tag/v0.3.0) | 将轨迹转为失败分类、回归差异和 CI 发布门禁；支持 Artifact 引用，不替代生产 APM |
-| **评测决策** | **LLM Eval Engine** | [llm-eval-engine](https://github.com/weihuaguo270-ops/llm-eval-engine) | [v0.3.0](https://github.com/weihuaguo270-ops/llm-eval-engine/releases/tag/v0.3.0) | 步骤级 Judge、Benchmark、标注校准、数据治理、安全回归和漂移发布检查 |
-| **成本性能** | **LLM 推理链路优化** | [llm-inference-pipeline](https://github.com/weihuaguo270-ops/llm-inference-pipeline) | v0.2.0 | 用 TTFT/TPOT、吞吐、Cache 占用和解码对照支持推理方案选型；不声称生产收益 |
+| **业务执行** | **ReAct Agent** | [react-agent](https://github.com/weihuaguo270-ops/react-agent) | [v0.8.0](https://github.com/weihuaguo270-ops/react-agent/releases/tag/v0.8.0) | 运行时、权限、容器工具隔离、可移植数据目录、业务终态评测和 Episode 导出 |
+| **质量治理** | **Trace Debugger** | [trace-debugger](https://github.com/weihuaguo270-ops/trace-debugger) | [v0.4.0](https://github.com/weihuaguo270-ops/trace-debugger/releases/tag/v0.4.0) | 将 Format B / Episode 轨迹转为失败分类、回归差异和 CI 门禁；不依赖轨迹生产方 SDK |
+| **评测决策** | **LLM Eval Engine** | [llm-eval-engine](https://github.com/weihuaguo270-ops/llm-eval-engine) | [v0.4.0](https://github.com/weihuaguo270-ops/llm-eval-engine/releases/tag/v0.4.0) | 跨 Agent Episode、真实 SDK 适配、业务/过程/失败/性能分栏发布判断 |
+| **成本性能** | **LLM 推理链路优化** | [llm-inference-pipeline](https://github.com/weihuaguo270-ops/llm-inference-pipeline) | [v0.2.0](https://github.com/weihuaguo270-ops/llm-inference-pipeline/releases/tag/v0.2.0) | 用 TTFT/TPOT、Cache 和硬件元数据生成可复核发布性能证据；不声称生产收益 |
 
 **负责人最近完成的业务闭环：**
 
@@ -45,7 +45,7 @@
 
 | 项目 | 负责什么 | 不声称什么 | CI |
 |------|----------|------------|:--:|
-| [**ReAct Agent**](https://github.com/weihuaguo270-ops/react-agent) | Agent 运行时 + 三类应用 HTTP；垂直 demo 证据化文档排障（引用/拒答）；Harness + StepWatcher；四套离线 eval | 自动 API 根因诊断；生产级沙箱 | ✅ |
+| [**ReAct Agent**](https://github.com/weihuaguo270-ops/react-agent) | Agent 运行时 + 三类应用 HTTP；Harness + StepWatcher；容器工具隔离；业务终态与轨迹验收 | 自动 API 根因诊断；完整企业权限平台或多租户隔离 | ✅ |
 | [**Trace Debugger**](https://github.com/weihuaguo270-ops/trace-debugger) | 7 类启发式失败检测；JSONL 记录 + 聚合统计；黄金集 27 条；可嵌入任意 ReAct Harness | Agent 可观测「平台」；自动修复 Agent | ✅ |
 | [**LLM Eval Engine**](https://github.com/weihuaguo270-ops/llm-eval-engine) | 步骤级 Process Reward、Benchmark 跑批、人机校准（κ / MAE）、Eval Loop | 训练型 PRM；替代 ReAct Agent capability 主集 | ✅ |
 | [**LLM 推理链路优化**](https://github.com/weihuaguo270-ops/llm-inference-pipeline) | Prefill/Decode 基准、KV Cache（Static/Paged/Prefix）、GQA/MLA、Spec/Lookahead/Medusa 解码对照 | 大规模预训练；生产级推理服务 | ✅ |
@@ -62,7 +62,7 @@ ReAct Agent 执行 → Harness 轨迹 (Format B, 1-based step)
 ```
 
 - Schema：[`react-agent/schemas/harness_trajectory.schema.json`](https://github.com/weihuaguo270-ops/react-agent/blob/main/schemas/harness_trajectory.schema.json) · [`trace-debugger/schemas/agent_trajectory.schema.json`](https://github.com/weihuaguo270-ops/trace-debugger/blob/master/schemas/agent_trajectory.schema.json)
-- 离线一键：`python examples/harness_closed_loop.py --fixture`（ReAct Agent CI `integration` 会跑）
+- 离线一键：`python examples/eval/harness_closed_loop.py --fixture`（ReAct Agent CI `integration` 会跑）
 - StepWatcher 证据：`python examples/eval/run_step_watcher_evidence.py --publish`
 - MCP / 本机路径：**不入库**；用 `mcp_servers.example.json` → 本地 `mcp_servers.json`
 
@@ -89,13 +89,13 @@ ReAct Agent 执行 → Harness 轨迹 (Format B, 1-based step)
 
 | 方向 | 证据 |
 |------|------|
-| Agent 运行时 / 多 app | **ReAct Agent** [v0.6.0](https://github.com/weihuaguo270-ops/react-agent/releases/tag/v0.6.0)：三类应用定位 + `/v1/chat` multi-app + Docker + Artifact 轨迹契约 |
+| Agent 运行时 / 多 app | **ReAct Agent** [v0.8.0](https://github.com/weihuaguo270-ops/react-agent/releases/tag/v0.8.0)：容器工具隔离、可移植运行数据、Expense dev/golden/held_out 和 Episode 导出 |
 | 文档排障 eval | golden 34 + fault 12 + production 5 + git 5（CI 四门禁） |
 | StepWatcher 跨仓 | Harness 录制时实时写 failure 标记；6 场景 golden e2e |
-| Trace Debugger | [v0.3.0](https://github.com/weihuaguo270-ops/trace-debugger/releases/tag/v0.3.0)：`FailureHarness` + Artifact 轨迹字段 + [RISKS](https://github.com/weihuaguo270-ops/trace-debugger/blob/master/docs/RISKS.md) |
-| Judge 校准 v5 | **LLM Eval Engine** [v0.3.0](https://github.com/weihuaguo270-ops/llm-eval-engine/releases/tag/v0.3.0) held_out n=53；数据/安全/漂移发布检查原型 |
-| 推理链路 | **LLM 推理链路优化** v0.2.0：MLA absorb max\|Δ\| < 1e-6；Prefill/Decode + Static/Paged Cache 基准 |
-| 诚实边界 | execute_python 是学习级子进程+超时；启发式失败分类不是 LLM Judge |
+| Trace Debugger | [v0.4.0](https://github.com/weihuaguo270-ops/trace-debugger/releases/tag/v0.4.0)：SDK 无关 Episode 导入、可移植 failure log、75 项回归；[RISKS](https://github.com/weihuaguo270-ops/trace-debugger/blob/master/docs/RISKS.md) |
+| Judge 与发布判断 | **LLM Eval Engine** [v0.4.0](https://github.com/weihuaguo270-ops/llm-eval-engine/releases/tag/v0.4.0)：校准 v5、真实 LangGraph/OpenAI Agents SDK 接入、四类证据门禁函数 |
+| 推理链路 | **LLM 推理链路优化** [v0.2.0](https://github.com/weihuaguo270-ops/llm-inference-pipeline/releases/tag/v0.2.0)：RTX 4060 记录负载 TTFT 2.68 ms、缓存 TPOT 2.71 ms；仅对记录环境有效 |
+| 诚实边界 | process Sandbox 只隔离崩溃/超时；container 才是工具执行 OS 边界；启发式失败分类不是 LLM Judge |
 
 ---
 
