@@ -14,14 +14,17 @@
 
 ## 业务组合（2026-08-13）
 
+当前发布矩阵已同步至 2026-08-20：各仓库按实际改进幅度分别发布 patch 版本；其中 ReAct Agent
+包含真实 Podman sandbox 验证，其余项目主要为证据契约和介绍文档同步。
+
 四个项目按业务决策链分工，共用 **Format B** 轨迹约定，分别回答四个问题：Agent 能否稳定完成任务、出了问题在哪里、评测结果是否可信、单位请求成本是否可控。
 
 | 线 | 项目 | 仓库 | 版本 | 我负责推到的状态 |
 |----|------|------|------|------------------|
-| **业务执行** | **ReAct Agent** | [react-agent](https://github.com/weihuaguo270-ops/react-agent) | [v0.8.0](https://github.com/weihuaguo270-ops/react-agent/releases/tag/v0.8.0) | 运行时、权限、容器工具隔离、可移植数据目录、业务终态评测和 Episode 导出 |
-| **质量治理** | **Trace Debugger** | [trace-debugger](https://github.com/weihuaguo270-ops/trace-debugger) | [v0.4.0](https://github.com/weihuaguo270-ops/trace-debugger/releases/tag/v0.4.0) | 将 Format B / Episode 轨迹转为失败分类、回归差异和 CI 门禁；不依赖轨迹生产方 SDK |
-| **评测决策** | **LLM Eval Engine** | [llm-eval-engine](https://github.com/weihuaguo270-ops/llm-eval-engine) | [v0.4.0](https://github.com/weihuaguo270-ops/llm-eval-engine/releases/tag/v0.4.0) | 跨 Agent Episode、真实 SDK 适配、业务/过程/失败/性能分栏发布判断 |
-| **成本性能** | **LLM 推理链路优化** | [llm-inference-pipeline](https://github.com/weihuaguo270-ops/llm-inference-pipeline) | [v0.2.0](https://github.com/weihuaguo270-ops/llm-inference-pipeline/releases/tag/v0.2.0) | 用 TTFT/TPOT、Cache 和硬件元数据生成可复核发布性能证据；不声称生产收益 |
+| **业务执行** | **ReAct Agent** | [react-agent](https://github.com/weihuaguo270-ops/react-agent) | [v0.10.1](https://github.com/weihuaguo270-ops/react-agent/releases/tag/v0.10.1) | 运行时、权限、容器工具隔离、Podman live evidence、业务终态评测和 Episode 导出 |
+| **质量治理** | **Trace Debugger** | [trace-debugger](https://github.com/weihuaguo270-ops/trace-debugger) | [v0.5.1](https://github.com/weihuaguo270-ops/trace-debugger/releases/tag/v0.5.1) | 将 Format B / Episode 轨迹转为失败分类、回归差异和 CI 门禁；不依赖轨迹生产方 SDK |
+| **评测决策** | **LLM Eval Engine** | [llm-eval-engine](https://github.com/weihuaguo270-ops/llm-eval-engine) | [v0.5.1](https://github.com/weihuaguo270-ops/llm-eval-engine/releases/tag/v0.5.1) | 跨 Agent Episode、真实 SDK 适配、业务/过程/失败/性能分栏发布判断 |
+| **成本性能** | **LLM 推理链路优化** | [llm-inference-pipeline](https://github.com/weihuaguo270-ops/llm-inference-pipeline) | [v0.3.1](https://github.com/weihuaguo270-ops/llm-inference-pipeline/releases/tag/v0.3.1) | 用 TTFT/TPOT、Cache、质量探针和硬件元数据生成可复核发布性能证据；不声称生产收益 |
 
 **近期完成的业务闭环：**
 
